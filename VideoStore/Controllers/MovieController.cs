@@ -28,7 +28,7 @@ namespace VideoStore.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.Movies.Find(id);
+            var movie = db.Movies.Find(id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -47,15 +47,21 @@ namespace VideoStore.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Director,Genre,Duration")] Movie movie)
+        public ActionResult Create([Bind(Include = "Title,Director,Genre,Duration")] Movie movie)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Movies.Add(movie);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Movies.Add(movie);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (DataException /* dex */)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+            }
             return View(movie);
         }
 
