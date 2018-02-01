@@ -18,27 +18,28 @@ namespace VideoStore.Controllers
         // GET: Movies
         public ActionResult Index(string sortOrder)
         {
-            ViewBag.IdSortParam = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
-            ViewBag.TitleSortParam = sortOrder == "Title" ? "title_desc" : "Title";
+            ViewBag.IdSortParam = String.IsNullOrEmpty(sortOrder) || sortOrder == "id_asc" ? "id_desc" : "id_asc";
+            ViewBag.TitleSortParam = sortOrder == "title_asc" ? "title_desc" : "title_asc";
             // movies is an IQueryable and thus the database call isn´t made until ToList() method is called.
             var movies = db.Movies.Select(m => m);
 
             switch (sortOrder)
             {
+
+                case "id_asc":
+                    movies = movies.OrderBy(m => m.Id);
+                    break;
+
                 case "id_desc":
                     movies = movies.OrderByDescending(m => m.Id);
                     break;
 
-                case "Title":
+                case "title_asc":
                     movies = movies.OrderBy(m => m.Title);
                     break;
 
                 case "name_desc":
                     movies = movies.OrderByDescending(m => m.Title);
-                    break;
-
-                default:
-                    movies = movies.OrderBy(m => m.Id);
                     break;
             }
             return View(movies.ToList());

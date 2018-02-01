@@ -16,9 +16,33 @@ namespace VideoStore.Controllers
         private VideoStoreContext db = new VideoStoreContext();
 
         // GET: Customers
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            return View(db.Customers.ToList());
+            ViewBag.IdSortParam = String.IsNullOrEmpty(sortOrder) || sortOrder == "id_asc" ? "id_desc" : "";
+            ViewBag.NameSortParam = sortOrder == "name_asc" ? "name_desc" : "name_asc";
+            // movies is an IQueryable and thus the database call isn´t made until ToList() method is called.
+            var customers = db.Customers.Select(c => c);
+
+            switch (sortOrder)
+            {
+
+                case "id_asc":
+                    customers = customers.OrderBy(m => m.Id);
+                    break;
+
+                case "id_desc":
+                    customers = customers.OrderByDescending(m => m.Id);
+                    break;
+
+                case "name_asc":
+                    customers = customers.OrderBy(m => m.LastName);
+                    break;
+
+                case "name_desc":
+                    customers = customers.OrderByDescending(m => m.LastName);
+                    break;
+            }
+            return View(customers.ToList());
         }
 
         // GET: Customers/Details/5
