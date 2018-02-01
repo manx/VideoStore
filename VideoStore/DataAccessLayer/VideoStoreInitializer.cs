@@ -37,7 +37,7 @@ namespace VideoStore.DataAccessLayer
             new List<Rental>
             {
                 //TODO: Add constructor in Rental class? 
-                new Rental{CustomerId = 1, MovieId = 1, RentalDate = new DateTime(2018,1,1,16,0,0), DueDate = new DateTime(2018,1,1,16,0,0).AddDays(2)},
+                new Rental{CustomerId = 1, MovieId = 1, RentalDate = new DateTime(2018,1,1,16,0,0), DueDate = new DateTime(2018,1,1,16,0,0).AddDays(2), ReturnDate = DateTime.Now},
                 new Rental{CustomerId = 1, MovieId = 4, RentalDate = DateTime.Today, DueDate = DateTime.Today.AddDays(2)},
                 new Rental{CustomerId = 2, MovieId = 2, RentalDate = DateTime.Today, DueDate = DateTime.Today.AddDays(2)},
                 new Rental{CustomerId = 3, MovieId = 3, RentalDate = DateTime.Today, DueDate = DateTime.Today.AddDays(2)}
