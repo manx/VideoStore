@@ -16,9 +16,32 @@ namespace VideoStore.Controllers
         private VideoStoreContext db = new VideoStoreContext();
 
         // GET: Movies
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            return View(db.Movies.ToList());
+            ViewBag.IdSortParam = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+            ViewBag.TitleSortParam = sortOrder == "Title" ? "title_desc" : "Title";
+            // movies is an IQueryable and thus the database call isn´t made until ToList() method is called.
+            var movies = db.Movies.Select(m => m);
+
+            switch (sortOrder)
+            {
+                case "id_desc":
+                    movies = movies.OrderByDescending(m => m.Id);
+                    break;
+
+                case "Title":
+                    movies = movies.OrderBy(m => m.Title);
+                    break;
+
+                case "name_desc":
+                    movies = movies.OrderByDescending(m => m.Title);
+                    break;
+
+                default:
+                    movies = movies.OrderBy(m => m.Id);
+                    break;
+            }
+            return View(movies.ToList());
         }
 
         // GET: Movies/Details/5
@@ -46,8 +69,11 @@ namespace VideoStore.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        // The ValidateAntiForgeryToken attribute requires a corresponding Html.AntiForgeryToken() statement in the view.
+        // It helps prevent cross-site request forgery attacks.
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Director,Genre,Duration")] Movie movie)
+        // The Bind attribute is used to stop overposting attacks. Include sets a white list of parameters.
+        public ActionResult Create([Bind(Include = "Title,Director,Genre,Duration")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +100,7 @@ namespace VideoStore.Controllers
             return View(movie);
         }
 
-        // POST: Movies/Edit/5
+        //POST: Movies/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]

@@ -46,6 +46,8 @@ namespace VideoStore.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        // The ValidateAntiForgeryToken attribute requires a corresponding Html.AntiForgeryToken() statement in the view.
+        // It helps prevent cross-site request forgery attacks.
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,FirstName,LastName")] Customer customer)
         {
