@@ -17,12 +17,10 @@ namespace VideoStore.DataAccessLayer
         {
         }
 
-        
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
         public DbSet<Movie> Movies { get; set; }
-
-        //TODO
-        // Could be omitted. Would be included implicitly by EF
-        public DbSet<Actor> Actors { get; set; }
+        
 
         // Since I´m calling modelBuilder.Conventions.Remove<PluralizingTableNames>(), 
         // the tables in the generated database wont have pluralized names. 

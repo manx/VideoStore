@@ -11,6 +11,7 @@ namespace VideoStore.Models
         Drama,
         Thriller,
         Comedy,
+        ScienceFiction,
         Documentary
     }
 }
