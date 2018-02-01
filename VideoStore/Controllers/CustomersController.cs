@@ -16,12 +16,20 @@ namespace VideoStore.Controllers
         private VideoStoreContext db = new VideoStoreContext();
 
         // GET: Customers
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string searchString)
         {
             ViewBag.IdSortParam = String.IsNullOrEmpty(sortOrder) || sortOrder == "id_asc" ? "id_desc" : "";
             ViewBag.NameSortParam = sortOrder == "name_asc" ? "name_desc" : "name_asc";
+            
             // movies is an IQueryable and thus the database call isn´t made until ToList() method is called.
             var customers = db.Customers.Select(c => c);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                customers = customers.Where(s => s.FirstName.Contains(searchString)
+                                           || s.LastName.ToString() == searchString
+                                           || s.Id.ToString() == searchString);
+            }
 
             switch (sortOrder)
             {

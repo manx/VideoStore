@@ -9,13 +9,22 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by title, genre or id: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Id", "Index", new {sortOrder = ViewBag.IdSortParam })
+            @Html.ActionLink("Id", "Index", new { sortOrder = ViewBag.IdSortParam })
         </th>
         <th>
-            @Html.ActionLink("Title", "Index", new {sortOrder = ViewBag.TitleSortParam })
+            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParam })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Genre)
@@ -44,9 +53,9 @@
                 @Html.DisplayFor(modelItem => item.Duration) min.
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
-                @Html.ActionLink("Details", "Details", new {id = item.Id}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }
