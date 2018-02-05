@@ -12,6 +12,7 @@ namespace VideoStore.Models
     public class Movie
     {
         public int Id { get; set; }
+        [Required]
         public string Title { get; set; }
         public string Director { get; set; }
         public Genre? Genre { get; set; }

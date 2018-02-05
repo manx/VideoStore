@@ -28,6 +28,10 @@
             @Html.DisplayFor(model => model.LastName)
         </dd>
     </dl>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
     <hr />
     @{
         var activeRentals = Model.Rentals.Where(r => !r.ReturnDate.HasValue).ToList();
@@ -80,7 +84,4 @@
         <dt>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

@@ -29,7 +29,8 @@ namespace VideoStore.DataAccessLayer
                     new Movie{Title = "The Terminator", Genre = Genre.Action, Duration = 107},
                     new Movie{Title = "Blade Runner 2049", Genre = Genre.ScienceFiction, Duration = 164},
                     new Movie{Title = "Min pappa Toni Erdmann", Genre = Genre.Comedy, Duration = 162},
-                    new Movie{Title = "The Square", Genre = Genre.Drama, Duration = 142}
+                    new Movie{Title = "The Square", Genre = Genre.Drama, Duration = 142},
+                    new Movie{Title = "The Lord of the Rings", Genre = Genre.Fantasy, Duration = 200}
                 }
                 .ForEach(m => context.Movies.Add(m));
             context.SaveChanges();
@@ -37,9 +38,10 @@ namespace VideoStore.DataAccessLayer
             new List<Rental>
             {
                 //TODO: Add constructor in Rental class? 
-                new Rental{CustomerId = 1, MovieId = 1, RentalDate = new DateTime(2018,1,1,16,0,0), DueDate = new DateTime(2018,1,1,16,0,0).AddDays(2)},
+                new Rental{CustomerId = 1, MovieId = 1, RentalDate = new DateTime(2018,1,1), DueDate = new DateTime(2018,1,1).AddDays(2)},
                 new Rental{CustomerId = 1, MovieId = 4, RentalDate = DateTime.Today, DueDate = DateTime.Today.AddDays(2)},
                 new Rental{CustomerId = 2, MovieId = 2, RentalDate = DateTime.Today, DueDate = DateTime.Today.AddDays(2)},
+                new Rental{CustomerId = 2, MovieId = 5, RentalDate = new DateTime(2018,1,1), DueDate = new DateTime(2018,1,1).AddDays(2), ReturnDate = new DateTime(2018, 1, 2)},
                 new Rental{CustomerId = 3, MovieId = 3, RentalDate = DateTime.Today, DueDate = DateTime.Today.AddDays(2)}
             }
             .ForEach(r => context.Rentals.Add(r));
