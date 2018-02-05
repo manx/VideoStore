@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<VideoStore.Models.Rental>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Rentals";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
     @Html.ActionLink("Rent Movie", "Create")

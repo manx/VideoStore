@@ -1,14 +1,10 @@
 ﻿@model IEnumerable<VideoStore.Models.Customer>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Customers";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm())
 {
@@ -44,3 +40,8 @@
         }
 
     </table>
+    
+<hr/>
+<p>
+    @Html.ActionLink("Add New Customer", "Create")
+</p>

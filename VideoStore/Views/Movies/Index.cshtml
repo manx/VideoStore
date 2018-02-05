@@ -1,14 +1,10 @@
 ﻿@model IEnumerable<VideoStore.Models.Movie>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Movies";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm())
 {
@@ -54,10 +50,16 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @*
+                TODO: Remove if not neeede 
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                *@
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }
-
 </table>
+<hr/>
+<p>
+    @Html.ActionLink("Add New Movie", "Create")
+</p>
