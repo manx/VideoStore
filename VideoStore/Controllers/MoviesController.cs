@@ -82,7 +82,7 @@ namespace VideoStore.Controllers
         // It helps prevent cross-site request forgery attacks.
         [ValidateAntiForgeryToken]
         // The Bind attribute is used to stop overposting attacks. Include sets a white list of parameters.
-        public ActionResult Create([Bind(Include = "Title,Director,Genre,Duration")] Movie movie)
+        public ActionResult Create([Bind(Include = "Title,Genre,Duration")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -114,7 +114,7 @@ namespace VideoStore.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Director,Genre,Duration")] Movie movie)
+        public ActionResult Edit([Bind(Include = "Id,Title,Genre,Duration")] Movie movie)
         {
             if (ModelState.IsValid)
             {

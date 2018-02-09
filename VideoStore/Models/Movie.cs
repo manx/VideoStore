@@ -14,11 +14,9 @@ namespace VideoStore.Models
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }
-        public string Director { get; set; }
         public Genre? Genre { get; set; }
         public int Duration { get; set; }
 
-        //TODO: Remove if not needed
         public virtual ICollection<Rental> Rentals { get; set; }
     }
 }

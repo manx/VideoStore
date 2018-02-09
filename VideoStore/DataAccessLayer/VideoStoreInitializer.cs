@@ -7,14 +7,10 @@ using VideoStore.Models;
 
 namespace VideoStore.DataAccessLayer
 {
-    // Inheriting from System.Data.Entity.DropCreateDatabaseIfModelChanges<VideoStoreContext> causes an existing Database to be dropped when the model changes.
-    // TODO: Not suitable for production.
-    public class VideoStoreInitializer : System.Data.Entity.DropCreateDatabaseAlways<VideoStoreContext> //DropCreateDatabaseIfModelChanges<VideoStoreContext>
+    public class VideoStoreInitializer : System.Data.Entity.CreateDatabaseIfNotExists<VideoStoreContext>
     {
         protected override void Seed(VideoStoreContext context)
         {
-            // TODO: Not needed in production
-            // context.SaveChanges() after every Table
             new List<Customer>
                 {
                     new Customer{FirstName = "Per", LastName = "Persson"},
@@ -22,8 +18,7 @@ namespace VideoStore.DataAccessLayer
                     new Customer{FirstName = "Magnus", LastName = "Magnusson"}
                 }
                 .ForEach(a => context.Customers.Add(a));
-            context.SaveChanges();
-
+        
             new List<Movie>
                 {
                     new Movie{Title = "The Terminator", Genre = Genre.Action, Duration = 107},
@@ -33,11 +28,9 @@ namespace VideoStore.DataAccessLayer
                     new Movie{Title = "The Lord of the Rings", Genre = Genre.Fantasy, Duration = 200}
                 }
                 .ForEach(m => context.Movies.Add(m));
-            context.SaveChanges();
-
+        
             new List<Rental>
             {
-                //TODO: Add constructor in Rental class? 
                 new Rental{CustomerId = 1, MovieId = 1, RentalDate = new DateTime(2018,1,1), DueDate = new DateTime(2018,1,1).AddDays(2)},
                 new Rental{CustomerId = 1, MovieId = 4, RentalDate = DateTime.Today, DueDate = DateTime.Today.AddDays(2)},
                 new Rental{CustomerId = 2, MovieId = 2, RentalDate = DateTime.Today, DueDate = DateTime.Today.AddDays(2)},
